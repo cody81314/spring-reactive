@@ -4,6 +4,8 @@ import com.example.demo.dto.PersonDTO;
 import com.example.demo.error.DemoException;
 import com.example.demo.service.DemoService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequestMapping("/demo")
 @AllArgsConstructor
 public class DemoController {
+    private final Logger LOGGER = LoggerFactory.getLogger(DemoController.class);
     private final WebClient petStoreClient;
     private final DemoService demoService;
 
@@ -37,6 +40,7 @@ public class DemoController {
 
     @GetMapping(value = "/pet/{petId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Object> getPetById(@PathVariable Long petId) {
+        LOGGER.info("Get Pet by id: {}", petId);
         return this.petStoreClient.get()
                 .uri("/pet/{petId}", petId)
                 .retrieve()
@@ -45,6 +49,7 @@ public class DemoController {
 
     @PostMapping("/person")
     public Mono<PersonDTO> addPerson(@RequestBody PersonDTO personDTO) {
+        LOGGER.info("Add person: {}", personDTO);
         return demoService.addPerson(personDTO.getName(), personDTO.getAge());
     }
 
