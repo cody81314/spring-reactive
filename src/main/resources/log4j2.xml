@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="pattern">%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}  %highlight{%level}{FATAL=white, ERROR=red, WARN=yellow, INFO=green, DEBUG=grey, TRACE=Cyan}  %style{%pid}{Magenta} --- %style{[%15.15t]} %style{[%15.15X{TRX_ID}]}{yellow} %style{[%15.15X{PATH_URI}]}{green} %style{%-40.40logger{39}}{cyan} %style{:}{faint} %msg%n</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}" disableAnsi="false" />
+        </Console>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console" />
+        </Root>
+    </Loggers>
+</Configuration>

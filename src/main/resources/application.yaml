@@ -2,5 +2,3 @@ logging:
   level:
     io.r2dbc.h2.client.SessionClient: info
     root: info
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%t] %level %logger - [%X{TRX_ID}][%X{PATH_URI}]%msg%n"
