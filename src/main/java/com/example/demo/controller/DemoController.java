@@ -6,6 +6,7 @@ import com.example.demo.service.DemoService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class DemoController {
 
     @GetMapping(value = "/{userId}/customers", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<List<String>> getUserCustomers(@PathVariable Long userId) {
-        throw new DemoException(HttpStatusCode.valueOf(400));
+        throw new DemoException(HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{userId}")
@@ -48,6 +49,7 @@ public class DemoController {
     }
 
     @PostMapping("/person")
+    @ResponseStatus(HttpStatus.CREATED)
     public Mono<PersonDTO> addPerson(@RequestBody PersonDTO personDTO) {
         LOGGER.info("Add person: {}", personDTO);
         return demoService.addPerson(personDTO.getName(), personDTO.getAge());

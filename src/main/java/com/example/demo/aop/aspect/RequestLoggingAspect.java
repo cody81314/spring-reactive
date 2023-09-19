@@ -122,14 +122,15 @@ public class RequestLoggingAspect {
         };
     }
 
-    @Value("${logging.pattern.console}")
-    private String pattern;
-
     private <T> void doOutputLogging(final ProceedingJoinPoint joinPoint, final Class<?> clazz, final Logger logger,
                                      final Instant start, final T result, final Throwable exception) {
         //log(...);
         //db.insert(...);
-        logger.info("AOP logger test");
+        if (exception != null)
+            logger.info("Occur error", exception);
+
+        if (result != null)
+            logger.info("The result is [{}]", result);
     }
 
 }
